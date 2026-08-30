@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Victor Aina — Product &amp; Payments Ops Consulting</title>
+<meta name="description" content="Fixed-scope audits, strategy docs, and roadmaps for payments, settlement, and ops-heavy product teams.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#10151F;
+    --ink-2:#161C28;
+    --paper:#F4F1E8;
+    --paper-dim:#E7E2D3;
+    --brass:#C9974B;
+    --brass-bright:#DDAE64;
+    --balance:#7FBF8E;
+    --line:#2A3140;
+    --line-on-paper:#D8D2BE;
+    --text-dim:#8B93A4;
+    --text-on-paper-dim:#6B6656;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'IBM Plex Sans', -apple-system, sans-serif;
+    --mono: 'IBM Plex Mono', 'Courier New', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 28px;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--brass);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;
+    height:1px;
+    background:var(--brass);
+    display:inline-block;
+  }
+  h1,h2,h3{font-family:var(--serif); font-weight:600; letter-spacing:-0.01em;}
+  .section{padding:96px 0;}
+  .section-border{border-top:1px solid var(--line);}
+  ::selection{background:var(--brass); color:var(--ink);}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--brass-bright);
+    outline-offset:3px;
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(16,21,31,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  header .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:18px; padding-bottom:18px;
+  }
+  .brand{
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:0.04em;
+    font-weight:600;
+  }
+  .brand span{color:var(--text-dim); font-weight:400;}
+  nav{display:flex; align-items:center; gap:28px;}
+  nav a{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    text-decoration:none;
+    transition:color .15s ease;
+  }
+  nav a:hover{color:var(--paper);}
+  .status-pill{
+    display:flex; align-items:center; gap:7px;
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:0.04em;
+    color:var(--balance);
+    border:1px solid var(--line);
+    padding:6px 12px;
+    border-radius:999px;
+  }
+  .status-dot{width:6px; height:6px; border-radius:50%; background:var(--balance); box-shadow:0 0 0 3px rgba(127,191,142,0.15);}
+  .nav-links-mobile-hide{display:flex;}
+  @media (max-width: 720px){
+    .nav-links-mobile-hide{display:none;}
+  }
+
+  /* ===== HERO ===== */
+  .hero{padding:88px 0 80px;}
+  .hero-headline{
+    font-size:clamp(34px, 5.6vw, 58px);
+    line-height:1.08;
+    max-width:15ch;
+    margin-bottom:28px;
+  }
+  .hero-headline em{
+    font-style:italic;
+    color:var(--brass-bright);
+  }
+  .hero-sub{
+    font-size:17px;
+    color:#C7CBD6;
+    max-width:52ch;
+    margin-bottom:40px;
+  }
+  .hero-actions{display:flex; align-items:center; gap:22px; flex-wrap:wrap;}
+  .btn-primary{
+    font-family:var(--mono);
+    font-size:13.5px;
+    letter-spacing:0.03em;
+    background:var(--brass);
+    color:var(--ink);
+    text-decoration:none;
+    padding:14px 22px;
+    border-radius:3px;
+    font-weight:600;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:background .15s ease, transform .15s ease;
+  }
+  .btn-primary:hover{background:var(--brass-bright); transform:translateY(-1px);}
+  .link-quiet{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-dim);
+    text-decoration:none;
+    border-bottom:1px solid var(--line);
+    padding-bottom:2px;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .link-quiet:hover{color:var(--paper); border-color:var(--text-dim);}
+
+  /* ===== PROBLEM ===== */
+  h2{font-size:clamp(26px, 3.4vw, 36px); line-height:1.2; max-width:20ch; margin-bottom:44px;}
+  .ledger-rows{border-top:1px solid var(--line);}
+  .ledger-row{
+    display:grid;
+    grid-template-columns:90px 1fr;
+    gap:24px;
+    padding:22px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .ledger-row .ref{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--brass);
+    letter-spacing:0.04em;
+    padding-top:3px;
+  }
+  .ledger-row .desc-title{
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:16.5px;
+    margin-bottom:6px;
+    color:var(--paper);
+  }
+  .ledger-row .desc-body{
+    font-size:14.5px;
+    color:var(--text-dim);
+    max-width:56ch;
+  }
+
+  /* ===== STATEMENT (pricing) ===== */
+  .statement-wrap{
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:4px;
+    padding:44px 40px 36px;
+    box-shadow:0 24px 60px -20px rgba(0,0,0,0.5);
+  }
+  .statement-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    border-bottom:1.5px solid var(--ink);
+    padding-bottom:18px; margin-bottom:6px;
+  }
+  .statement-head .title{
+    font-family:var(--serif); font-weight:600; font-size:20px;
+  }
+  .statement-head .meta{
+    font-family:var(--mono); font-size:11.5px; color:var(--text-on-paper-dim);
+    text-align:right; line-height:1.7;
+  }
+  .stmt-cols{
+    display:grid;
+    grid-template-columns:64px 1fr 110px 130px;
+    gap:16px;
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--text-on-paper-dim);
+    padding:14px 0 10px;
+    border-bottom:1px solid var(--line-on-paper);
+  }
+  .stmt-row{
+    display:grid;
+    grid-template-columns:64px 1fr 110px 130px;
+    gap:16px;
+    padding:20px 0;
+    border-bottom:1px solid var(--line-on-paper);
+    align-items:start;
+    transition:background .15s ease;
+  }
+  .stmt-row:hover{background:rgba(201,151,75,0.08);}
+  .stmt-row .ref{font-family:var(--mono); font-size:12px; color:var(--text-on-paper-dim); padding-top:2px;}
+  .stmt-row .item-name{font-weight:600; font-size:15.5px; margin-bottom:5px;}
+  .stmt-row .item-desc{font-size:13px; color:var(--text-on-paper-dim); max-width:40ch;}
+  .stmt-row .term{font-family:var(--mono); font-size:12.5px; color:var(--text-on-paper-dim); padding-top:2px;}
+  .stmt-row .amt{font-family:var(--mono); font-size:14.5px; font-weight:600; text-align:right; padding-top:2px;}
+  .stmt-row.free .amt{color:#4B8A5C;}
+  .stmt-row.free .ref{color:#4B8A5C;}
+  .stmt-balance{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:22px; margin-top:6px;
+    border-top:1.5px solid var(--ink);
+  }
+  .stmt-balance .label{font-family:var(--mono); font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-on-paper-dim);}
+  .stmt-balance .value{font-family:var(--mono); font-size:18px; font-weight:600; color:#4B8A5C;}
+  .stmt-foot-note{
+    font-family:var(--mono); font-size:11.5px; color:var(--text-on-paper-dim);
+    margin-top:16px; font-style:italic;
+  }
+  @media (max-width:640px){
+    .stmt-cols{display:none;}
+    .stmt-row{grid-template-columns:1fr; gap:6px;}
+    .stmt-row .ref{order:1;}
+    .stmt-row .item-name{order:2;}
+    .stmt-row .item-desc{order:3; margin-bottom:8px;}
+    .stmt-row .term{order:4;}
+    .stmt-row .amt{order:5; text-align:left; margin-top:4px;}
+  }
+
+  /* ===== WHY ME ===== */
+  .why-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:56px; align-items:start;}
+  @media (max-width:760px){.why-grid{grid-template-columns:1fr; gap:36px;}}
+  .why-body p{color:#C7CBD6; font-size:15.5px; margin-bottom:16px; max-width:56ch;}
+  .why-body p strong{color:var(--paper);}
+  .chain{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-dim);
+    letter-spacing:0.01em;
+    margin-top:22px;
+    line-height:2;
+  }
+  .chain b{color:var(--brass);}
+  .credentials{
+    border-left:1px solid var(--line);
+    padding-left:26px;
+  }
+  .credentials .cred-eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--text-dim); margin-bottom:16px;
+  }
+  .credentials ul{list-style:none;}
+  .credentials li{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#C7CBD6;
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .credentials li:last-child{border-bottom:none;}
+
+  /* ===== PROOF ===== */
+  .proof-list{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:14px 40px;
+    margin-bottom:28px;
+  }
+  @media (max-width:640px){.proof-list{grid-template-columns:1fr;}}
+  .proof-item{
+    font-size:14.5px;
+    color:#C7CBD6;
+    padding-left:18px;
+    position:relative;
+  }
+  .proof-item::before{
+    content:"—";
+    position:absolute; left:0; color:var(--brass);
+  }
+  .proof-note{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--text-dim);
+    font-style:italic;
+    border-top:1px solid var(--line);
+    padding-top:20px;
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-section{text-align:left;}
+  .contact-headline{
+    font-size:clamp(26px, 4vw, 40px);
+    max-width:18ch;
+    margin-bottom:36px;
+  }
+  .contact-row{display:flex; align-items:center; gap:26px; flex-wrap:wrap; margin-bottom:52px;}
+  .footer-row{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:12px;
+    padding-top:28px;
+    border-top:1px solid var(--line);
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-dim);
+  }
+  .footer-row a{text-decoration:none; color:var(--text-dim); transition:color .15s ease;}
+  .footer-row a:hover{color:var(--paper);}
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">VICTOR AINA <span>— Product &amp; Payments Ops</span></div>
+    <nav>
+      <div class="nav-links-mobile-hide" style="display:flex; gap:28px; margin-right:28px;">
+        <a href="#problem">Problem</a>
+        <a href="#engagements">Engagements</a>
+        <a href="#why">Why me</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="status-pill"><span class="status-dot"></span>Open for engagements</div>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Statement of work — draft</div>
+    <h1 class="hero-headline">Where does your settlement process <em>actually</em> break?</h1>
+    <p class="hero-sub">I help payments and ops-heavy product teams find out why settlement, reconciliation, and dispute processes are bleeding time and money — then hand you a fixed-scope plan your team can run in 90 days. Not a strategy deck that sits in a drawer.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="mailto:hello@victoraina.co?subject=Scoping%20call">Book a free scoping call →</a>
+      <a class="link-quiet" href="#engagements">See how engagements work</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-border reveal" id="problem">
+  <div class="wrap">
+    <div class="eyebrow">Where it usually breaks</div>
+    <h2>The gap is rarely the product. It's the seams between teams.</h2>
+    <div class="ledger-rows">
+      <div class="ledger-row">
+        <div class="ref">01 — SETL</div>
+        <div>
+          <div class="desc-title">Settlement</div>
+          <div class="desc-body">Timing gaps between processing and clearing that nobody has actually mapped end to end.</div>
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="ref">02 — RECN</div>
+        <div>
+          <div class="desc-title">Reconciliation</div>
+          <div class="desc-body">Manual matching absorbing hours that should have been automated two platforms ago.</div>
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="ref">03 — DISP</div>
+        <div>
+          <div class="desc-title">Disputes</div>
+          <div class="desc-body">No clear ownership between ops, product, and compliance — so cases stall in the handoff.</div>
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="ref">04 — RPT</div>
+        <div>
+          <div class="desc-title">Reporting</div>
+          <div class="desc-body">Numbers that don't agree between teams, so every review starts with an argument about the data.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-border reveal" id="engagements">
+  <div class="wrap">
+    <div class="eyebrow">How we work together</div>
+    <h2>Three fixed-scope engagements. No open-ended retainers.</h2>
+
+    <div class="statement-wrap">
+      <div class="statement-head">
+        <div class="title">Engagement Statement</div>
+        <div class="meta">ISSUED TO: Your team<br>SCOPE: Fixed, not hourly</div>
+      </div>
+
+      <div class="stmt-cols">
+        <div>Ref</div><div>Engagement</div><div>Timeframe</div><div style="text-align:right;">Amount</div>
+      </div>
+
+      <div class="stmt-row free">
+        <div class="ref">000</div>
+        <div>
+          <div class="item-name">Scoping Call</div>
+          <div class="item-desc">30 minutes to find out if there's actually something worth fixing.</div>
+        </div>
+        <div class="term">30 min</div>
+        <div class="amt">$0.00 — Free</div>
+      </div>
+
+      <div class="stmt-row">
+        <div class="ref">AUD-01</div>
+        <div>
+          <div class="item-name">Ops Product Audit</div>
+          <div class="item-desc">Structured review of one product or process area — interviews, process mapping, gap analysis, ranked findings.</div>
+        </div>
+        <div class="term">1–2 weeks</div>
+        <div class="amt">$1,500–$2,500</div>
+      </div>
+
+      <div class="stmt-row">
+        <div class="ref">STR-02</div>
+        <div>
+          <div class="item-name">Strategy Doc</div>
+          <div class="item-desc">Options analysis, recommendation, economics, and risk — board-ready decision support.</div>
+        </div>
+        <div class="term">2–3 weeks</div>
+        <div class="amt">$3,000–$5,000</div>
+      </div>
+
+      <div class="stmt-row">
+        <div class="ref">ROD-03</div>
+        <div>
+          <div class="item-name">Execution Roadmap</div>
+          <div class="item-desc">Phased roadmap, KPIs, milestones, and a live walkthrough your team can run with.</div>
+        </div>
+        <div class="term">3–4 weeks</div>
+        <div class="amt">$5,000–$8,000</div>
+      </div>
+
+      <div class="stmt-balance">
+        <div class="label">Balance to start</div>
+        <div class="value">$0.00</div>
+      </div>
+      <div class="stmt-foot-note">Every engagement starts at REF 000. Nothing above that line happens without a call first.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-border reveal" id="why">
+  <div class="wrap">
+    <div class="eyebrow">Ref: track record</div>
+    <h2>A decade inside the transaction lifecycle, not just around it.</h2>
+    <div class="why-grid">
+      <div class="why-body">
+        <p>I lead the OPS Product portfolio at <strong>Interswitch</strong>, covering Settlement, OneView, Recon, and Dispute teams — across engineering, ops, compliance, sales, and risk. That means the full chain, not one slice of it:</p>
+        <div class="chain"><b>Transaction</b> → Processing → Clearing → <b>Settlement</b> → <b>Reconciliation</b> → Reporting → <b>Dispute</b> → Customer/merchant ops</div>
+        <p style="margin-top:22px;">Most consultants advising on payments products have read about this chain. I've owned the products that run it.</p>
+      </div>
+      <div class="credentials">
+        <div class="cred-eyebrow">Certifications</div>
+        <ul>
+          <li>Certified SAFe 5 Product Manager</li>
+          <li>Enterprise Design Thinking — IBM</li>
+          <li>Lean Six Sigma — Yellow Belt</li>
+          <li>ITIL Service Operations — Axelos</li>
+          <li>Product Strategy — Product School</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-border reveal">
+  <div class="wrap">
+    <div class="eyebrow">Selected scope</div>
+    <h2>Systems I've worked inside</h2>
+    <div class="proof-list">
+      <div class="proof-item">Settlement and reporting platforms</div>
+      <div class="proof-item">Dispute resolution systems</div>
+      <div class="proof-item">Reconciliation tooling &amp; Kafka/Spark reporting pipelines</div>
+      <div class="proof-item">Enterprise BackOffice applications</div>
+      <div class="proof-item">NEFT API settlement automation</div>
+      <div class="proof-item">Cross-functional ops product leadership</div>
+    </div>
+    <div class="proof-note">Client-approved case studies with full detail available on request.</div>
+  </div>
+</section>
+
+<section class="section section-border reveal contact-section" id="contact">
+  <div class="wrap">
+    <div class="eyebrow">Close the loop</div>
+    <h2 class="contact-headline">If something in your settlement or ops chain doesn't add up, let's find out why.</h2>
+    <div class="contact-row">
+      <a class="btn-primary" href="mailto:hello@victoraina.co?subject=Scoping%20call">Book a free scoping call →</a>
+      <a class="link-quiet" href="https://www.linkedin.com/in/ainavictor/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+    <div class="footer-row">
+      <div>Victor Aina — Product &amp; Payments Ops Consulting</div>
+      <div><a href="mailto:hello@victoraina.co">hello@victoraina.co</a></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const items = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    items.forEach(i => io.observe(i));
+  } else {
+    document.querySelectorAll('.reveal').forEach(i => i.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
