@@ -3,24 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Victor Aina — Product &amp; Payments Ops Consulting</title>
-<meta name="description" content="Fixed-scope audits, strategy docs, and roadmaps for payments, settlement, and ops-heavy product teams.">
+<title>Victor Aina — Product Strategy &amp; Ops Consulting</title>
+<meta name="description" content="Fixed-scope audits, strategy docs, and roadmaps for product teams that need cross-functional alignment and a plan they can actually run with.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#10151F;
-    --ink-2:#161C28;
-    --paper:#F4F1E8;
-    --paper-dim:#E7E2D3;
-    --brass:#C9974B;
-    --brass-bright:#DDAE64;
-    --balance:#7FBF8E;
-    --line:#2A3140;
-    --line-on-paper:#D8D2BE;
-    --text-dim:#8B93A4;
-    --text-on-paper-dim:#6B6656;
+    --bg:#FAFAF6;
+    --bg-card:#FFFFFF;
+    --text:#111111;
+    --text-dim:#5C5C54;
+    --line:#E2DFD3;
+    --accent:#2F6E4F;
     --serif: 'Fraunces', Georgia, serif;
     --sans: 'IBM Plex Sans', -apple-system, sans-serif;
     --mono: 'IBM Plex Mono', 'Courier New', monospace;
@@ -32,8 +27,8 @@
     *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
   }
   body{
-    background:var(--ink);
-    color:var(--paper);
+    background:var(--bg);
+    color:var(--text);
     font-family:var(--sans);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
@@ -45,7 +40,7 @@
     font-size:12px;
     letter-spacing:0.14em;
     text-transform:uppercase;
-    color:var(--brass);
+    color:var(--text-dim);
     display:flex;
     align-items:center;
     gap:10px;
@@ -55,24 +50,24 @@
     content:"";
     width:22px;
     height:1px;
-    background:var(--brass);
+    background:var(--text-dim);
     display:inline-block;
   }
   h1,h2,h3{font-family:var(--serif); font-weight:600; letter-spacing:-0.01em;}
   .section{padding:96px 0;}
   .section-border{border-top:1px solid var(--line);}
-  ::selection{background:var(--brass); color:var(--ink);}
+  ::selection{background:var(--text); color:var(--bg);}
 
   /* focus visibility */
   a:focus-visible, button:focus-visible{
-    outline:2px solid var(--brass-bright);
+    outline:2px solid var(--text);
     outline-offset:3px;
   }
 
   /* ===== HEADER ===== */
   header{
     position:sticky; top:0; z-index:50;
-    background:rgba(16,21,31,0.88);
+    background:rgba(250,250,246,0.9);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
   }
@@ -97,25 +92,52 @@
     text-decoration:none;
     transition:color .15s ease;
   }
-  nav a:hover{color:var(--paper);}
-  .status-pill{
-    display:flex; align-items:center; gap:7px;
-    font-family:var(--mono);
-    font-size:11.5px;
-    letter-spacing:0.04em;
-    color:var(--balance);
-    border:1px solid var(--line);
-    padding:6px 12px;
-    border-radius:999px;
-  }
-  .status-dot{width:6px; height:6px; border-radius:50%; background:var(--balance); box-shadow:0 0 0 3px rgba(127,191,142,0.15);}
-  .nav-links-mobile-hide{display:flex;}
+  nav a:hover{color:var(--text);}
+  nav a.active, .mobile-nav a.active{color:var(--text); font-weight:600;}
+  .nav-links-mobile-hide{display:flex; gap:28px; margin-right:28px;}
   @media (max-width: 720px){
     .nav-links-mobile-hide{display:none;}
   }
+  .menu-toggle{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    justify-content:center;
+    align-items:center;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:6px;
+    margin-left:14px;
+  }
+  .menu-toggle span{width:20px; height:1.5px; background:var(--text); transition:transform .2s ease, opacity .2s ease;}
+  .menu-toggle.is-open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .menu-toggle.is-open span:nth-child(2){opacity:0;}
+  .menu-toggle.is-open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+  @media (max-width:720px){
+    .menu-toggle{display:flex;}
+  }
+  .mobile-nav{
+    display:none;
+    flex-direction:column;
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+  }
+  .mobile-nav.open{display:flex;}
+  .mobile-nav a{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    text-decoration:none;
+    padding:16px 28px;
+    border-top:1px solid var(--line);
+    transition:color .15s ease;
+  }
+  .mobile-nav a:hover{color:var(--text);}
 
-  /* ===== HERO ===== */
-  .hero{padding:88px 0 80px;}
+  /* ===== HERO (Home tab only) ===== */
   .hero-headline{
     font-size:clamp(34px, 5.6vw, 58px);
     line-height:1.08;
@@ -124,11 +146,10 @@
   }
   .hero-headline em{
     font-style:italic;
-    color:var(--brass-bright);
   }
   .hero-sub{
     font-size:17px;
-    color:#C7CBD6;
+    color:var(--text-dim);
     max-width:52ch;
     margin-bottom:40px;
   }
@@ -137,8 +158,8 @@
     font-family:var(--mono);
     font-size:13.5px;
     letter-spacing:0.03em;
-    background:var(--brass);
-    color:var(--ink);
+    background:var(--text);
+    color:var(--bg);
     text-decoration:none;
     padding:14px 22px;
     border-radius:3px;
@@ -148,7 +169,7 @@
     gap:8px;
     transition:background .15s ease, transform .15s ease;
   }
-  .btn-primary:hover{background:var(--brass-bright); transform:translateY(-1px);}
+  .btn-primary:hover{background:#2b2b2b; transform:translateY(-1px);}
   .link-quiet{
     font-family:var(--mono);
     font-size:13px;
@@ -158,7 +179,13 @@
     padding-bottom:2px;
     transition:color .15s ease, border-color .15s ease;
   }
-  .link-quiet:hover{color:var(--paper); border-color:var(--text-dim);}
+  .link-quiet:hover{color:var(--text); border-color:var(--text-dim);}
+
+  /* ===== SHARED: text + supporting photo layout ===== */
+  .split-photo{display:grid; grid-template-columns:1fr 260px; gap:40px; align-items:start;}
+  @media (max-width:700px){.split-photo{grid-template-columns:1fr;}}
+  .side-photo{aspect-ratio:4/5; overflow:hidden; border:1px solid var(--line); background:var(--line);}
+  .side-photo img{width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.05); display:block;}
 
   /* ===== PROBLEM ===== */
   h2{font-size:clamp(26px, 3.4vw, 36px); line-height:1.2; max-width:20ch; margin-bottom:44px;}
@@ -173,7 +200,7 @@
   .ledger-row .ref{
     font-family:var(--mono);
     font-size:12.5px;
-    color:var(--brass);
+    color:var(--text-dim);
     letter-spacing:0.04em;
     padding-top:3px;
   }
@@ -182,7 +209,7 @@
     font-weight:600;
     font-size:16.5px;
     margin-bottom:6px;
-    color:var(--paper);
+    color:var(--text);
   }
   .ledger-row .desc-body{
     font-size:14.5px;
@@ -192,22 +219,23 @@
 
   /* ===== STATEMENT (pricing) ===== */
   .statement-wrap{
-    background:var(--paper);
-    color:var(--ink);
+    background:var(--bg-card);
+    color:var(--text);
+    border:1px solid var(--line);
     border-radius:4px;
     padding:44px 40px 36px;
-    box-shadow:0 24px 60px -20px rgba(0,0,0,0.5);
+    box-shadow:0 20px 50px -32px rgba(17,17,17,0.2);
   }
   .statement-head{
     display:flex; justify-content:space-between; align-items:flex-end;
-    border-bottom:1.5px solid var(--ink);
+    border-bottom:1.5px solid var(--text);
     padding-bottom:18px; margin-bottom:6px;
   }
   .statement-head .title{
     font-family:var(--serif); font-weight:600; font-size:20px;
   }
   .statement-head .meta{
-    font-family:var(--mono); font-size:11.5px; color:var(--text-on-paper-dim);
+    font-family:var(--mono); font-size:11.5px; color:var(--text-dim);
     text-align:right; line-height:1.7;
   }
   .stmt-cols{
@@ -218,36 +246,36 @@
     font-size:10.5px;
     letter-spacing:0.08em;
     text-transform:uppercase;
-    color:var(--text-on-paper-dim);
+    color:var(--text-dim);
     padding:14px 0 10px;
-    border-bottom:1px solid var(--line-on-paper);
+    border-bottom:1px solid var(--line);
   }
   .stmt-row{
     display:grid;
     grid-template-columns:64px 1fr 110px 130px;
     gap:16px;
     padding:20px 0;
-    border-bottom:1px solid var(--line-on-paper);
+    border-bottom:1px solid var(--line);
     align-items:start;
     transition:background .15s ease;
   }
-  .stmt-row:hover{background:rgba(201,151,75,0.08);}
-  .stmt-row .ref{font-family:var(--mono); font-size:12px; color:var(--text-on-paper-dim); padding-top:2px;}
+  .stmt-row:hover{background:rgba(17,17,17,0.035);}
+  .stmt-row .ref{font-family:var(--mono); font-size:12px; color:var(--text-dim); padding-top:2px;}
   .stmt-row .item-name{font-weight:600; font-size:15.5px; margin-bottom:5px;}
-  .stmt-row .item-desc{font-size:13px; color:var(--text-on-paper-dim); max-width:40ch;}
-  .stmt-row .term{font-family:var(--mono); font-size:12.5px; color:var(--text-on-paper-dim); padding-top:2px;}
+  .stmt-row .item-desc{font-size:13px; color:var(--text-dim); max-width:40ch;}
+  .stmt-row .term{font-family:var(--mono); font-size:12.5px; color:var(--text-dim); padding-top:2px;}
   .stmt-row .amt{font-family:var(--mono); font-size:14.5px; font-weight:600; text-align:right; padding-top:2px;}
-  .stmt-row.free .amt{color:#4B8A5C;}
-  .stmt-row.free .ref{color:#4B8A5C;}
+  .stmt-row.free .amt{color:var(--accent);}
+  .stmt-row.free .ref{color:var(--accent);}
   .stmt-balance{
     display:flex; justify-content:space-between; align-items:center;
     padding-top:22px; margin-top:6px;
-    border-top:1.5px solid var(--ink);
+    border-top:1.5px solid var(--text);
   }
-  .stmt-balance .label{font-family:var(--mono); font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-on-paper-dim);}
-  .stmt-balance .value{font-family:var(--mono); font-size:18px; font-weight:600; color:#4B8A5C;}
+  .stmt-balance .label{font-family:var(--mono); font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-dim);}
+  .stmt-balance .value{font-family:var(--mono); font-size:18px; font-weight:600; color:var(--accent);}
   .stmt-foot-note{
-    font-family:var(--mono); font-size:11.5px; color:var(--text-on-paper-dim);
+    font-family:var(--mono); font-size:11.5px; color:var(--text-dim);
     margin-top:16px; font-style:italic;
   }
   @media (max-width:640px){
@@ -263,8 +291,8 @@
   /* ===== WHY ME ===== */
   .why-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:56px; align-items:start;}
   @media (max-width:760px){.why-grid{grid-template-columns:1fr; gap:36px;}}
-  .why-body p{color:#C7CBD6; font-size:15.5px; margin-bottom:16px; max-width:56ch;}
-  .why-body p strong{color:var(--paper);}
+  .why-body p{color:var(--text-dim); font-size:15.5px; margin-bottom:16px; max-width:56ch;}
+  .why-body p strong{color:var(--text);}
   .chain{
     font-family:var(--mono);
     font-size:12px;
@@ -273,10 +301,27 @@
     margin-top:22px;
     line-height:2;
   }
-  .chain b{color:var(--brass);}
-  .credentials{
+  .chain b{color:var(--text);}
+  .why-side{
     border-left:1px solid var(--line);
     padding-left:26px;
+    display:flex;
+    flex-direction:column;
+    gap:32px;
+  }
+  .why-photo{
+    aspect-ratio:4/5;
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:var(--line);
+  }
+  .why-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:50% 15%;
+    filter:grayscale(1) contrast(1.05);
+    display:block;
   }
   .credentials .cred-eyebrow{
     font-family:var(--mono); font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
@@ -286,11 +331,24 @@
   .credentials li{
     font-family:var(--mono);
     font-size:13px;
-    color:#C7CBD6;
+    color:var(--text-dim);
     padding:10px 0;
     border-bottom:1px solid var(--line);
   }
   .credentials li:last-child{border-bottom:none;}
+  .tag-row{display:flex; flex-wrap:wrap; gap:10px; margin:20px 0;}
+  .tag{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    border:1px solid var(--line);
+    padding:6px 12px;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+  }
 
   /* ===== PROOF ===== */
   .proof-list{
@@ -299,16 +357,16 @@
     gap:14px 40px;
     margin-bottom:28px;
   }
-  @media (max-width:640px){.proof-list{grid-template-columns:1fr;}}
+  @media (max-width:520px){.proof-list{grid-template-columns:1fr;}}
   .proof-item{
     font-size:14.5px;
-    color:#C7CBD6;
+    color:var(--text-dim);
     padding-left:18px;
     position:relative;
   }
   .proof-item::before{
     content:"—";
-    position:absolute; left:0; color:var(--brass);
+    position:absolute; left:0; color:var(--text-dim);
   }
   .proof-note{
     font-family:var(--mono);
@@ -319,6 +377,9 @@
     padding-top:20px;
   }
 
+  /* ===== SUB-SECTION DIVIDER (inside a tab, between stacked blocks) ===== */
+  .sub-section{margin-top:72px; padding-top:56px; border-top:1px solid var(--line);}
+
   /* ===== CONTACT ===== */
   .contact-section{text-align:left;}
   .contact-headline{
@@ -326,18 +387,40 @@
     max-width:18ch;
     margin-bottom:36px;
   }
-  .contact-row{display:flex; align-items:center; gap:26px; flex-wrap:wrap; margin-bottom:52px;}
+  .contact-row{display:flex; align-items:center; gap:26px; flex-wrap:wrap;}
+  .social-row{display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-top:22px;}
+  .social-row .social-label{font-family:var(--mono); font-size:13px; color:var(--text-dim);}
+
+  /* ===== COLLABORATIONS ===== */
+  .collab-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:32px; margin-top:8px;}
+  @media (max-width:760px){.collab-grid{grid-template-columns:1fr; gap:40px; max-width:360px;}}
+  .collab-image{
+    aspect-ratio:1/1;
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:var(--bg-card);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:18px;
+  }
+  .collab-image img{width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.05); display:block;}
+  .collab-title{font-weight:600; font-size:17px; margin-bottom:8px; color:var(--text);}
+  .collab-desc{font-size:14px; color:var(--text-dim); margin-bottom:16px;}
+  .collab-links{display:flex; flex-wrap:wrap; gap:16px;}
+
+  /* ===== FOOTER ===== */
   .footer-row{
     display:flex; justify-content:space-between; align-items:center;
     flex-wrap:wrap; gap:12px;
-    padding-top:28px;
+    padding:28px 0 56px;
     border-top:1px solid var(--line);
     font-family:var(--mono);
     font-size:12px;
     color:var(--text-dim);
   }
   .footer-row a{text-decoration:none; color:var(--text-dim); transition:color .15s ease;}
-  .footer-row a:hover{color:var(--paper);}
+  .footer-row a:hover{color:var(--text);}
 
   /* reveal on scroll */
   .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease;}
@@ -346,188 +429,341 @@
 </head>
 <body>
 
+<!--
+  EDITING GUIDE
+  Every block of copy on this page is wrapped in a comment like the ones below,
+  e.g. <!- EDIT: hero headline ->. To update the site:
+    1. Only change TEXT that sits between an opening tag (like <h2>) and its
+       closing tag (like </h2>). Never delete or add a < or > character.
+    2. Leave class="...", id="...", data-nav-for="...", and href="#..."
+       attributes exactly as they are — they control the look and the tab
+       switching, not the words.
+    3. If a line has &amp; in it, that's how an "&" is written in HTML — you
+       can type "and" instead if you prefer, but don't type a bare "&".
+    4. The site is now split into 5 tabs (Home / Problem / Why Me / Collabs / Contact). Each
+       tab's content lives inside <section class="... tab-panel" id="...">.
+       To add or replace a photo, swap the file name inside src="Pictures/...".
+    5. Save the file and reload it in a browser to check your change.
+-->
+
 <header>
   <div class="wrap">
-    <div class="brand">VICTOR AINA <span>— Product &amp; Payments Ops</span></div>
+    <!-- EDIT: brand name shown top-left of every page -->
+    <div class="brand">VICTOR AINA <span>— Product Strategy &amp; Ops</span></div>
     <nav>
-      <div class="nav-links-mobile-hide" style="display:flex; gap:28px; margin-right:28px;">
-        <a href="#problem">Problem</a>
-        <a href="#engagements">Engagements</a>
-        <a href="#why">Why me</a>
-        <a href="#contact">Contact</a>
+      <div class="nav-links-mobile-hide">
+        <a href="#home" data-nav-for="home">Home</a>
+        <a href="#problem" data-nav-for="problem">Problem</a>
+        <a href="#why" data-nav-for="why">Why Me</a>
+        <a href="#collabs" data-nav-for="collabs">Collabs</a>
+        <a href="#contact" data-nav-for="contact">Contact</a>
       </div>
-      <div class="status-pill"><span class="status-dot"></span>Open for engagements</div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
     </nav>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#home" data-nav-for="home">Home</a>
+    <a href="#problem" data-nav-for="problem">Problem</a>
+    <a href="#why" data-nav-for="why">Why Me</a>
+    <a href="#collabs" data-nav-for="collabs">Collabs</a>
+    <a href="#contact" data-nav-for="contact">Contact</a>
   </div>
 </header>
 
-<section class="hero">
+<div id="tab-panels">
+
+<!-- ================= TAB 1: HOME (about me) ================= -->
+<section class="section section-border reveal tab-panel" id="home">
   <div class="wrap">
-    <div class="eyebrow">Statement of work — draft</div>
-    <h1 class="hero-headline">Where does your settlement process <em>actually</em> break?</h1>
-    <p class="hero-sub">I help payments and ops-heavy product teams find out why settlement, reconciliation, and dispute processes are bleeding time and money — then hand you a fixed-scope plan your team can run in 90 days. Not a strategy deck that sits in a drawer.</p>
+    <!-- EDIT: hero headline and subheading (Home tab only) -->
+    <h1 class="hero-headline">Where does your product <em>actually</em> break down?</h1>
+    <p class="hero-sub">I help product and ops-heavy teams find out why strategy, execution, and cross-functional handoffs are stalling — then hand you a fixed-scope plan your team can run in 90 days. Not a strategy deck that sits in a drawer.</p>
     <div class="hero-actions">
       <a class="btn-primary" href="mailto:hello@victoraina.co?subject=Scoping%20call">Book a free scoping call →</a>
       <a class="link-quiet" href="#engagements">See how engagements work</a>
     </div>
+
+    <div class="sub-section">
+      <!-- EDIT: About/Home headline and bio copy -->
+      <div class="eyebrow">About</div>
+      <h2>Simplifying complexity is the job — not just the pitch.</h2>
+      <div class="why-grid">
+      <div class="why-body">
+        <p>I help simplify the complexities of product management. With over 8 years of experience across fintech, operations, and technology, I've built a reputation for solving hard problems and shipping products that create real customer and business impact.</p>
+        <p>My career has been a series of untangling jobs — from transitioning a core banking solution to redesigning operations platforms end to end. Along the way I've picked up recognitions like <strong>Speed Champion</strong> and <strong>Overall Best Employee</strong>, not because I was chasing titles, but because the transformations stuck.</p>
+        <div class="tag-row">
+          <span class="tag">Speed Champion</span>
+          <span class="tag">Overall Best Employee</span>
+        </div>
+        <p style="margin-top:22px;">Outside of product work, you'll find me deep in gaming, anime, or hunting down new food — the things that keep me creative and resilient. On and off the clock, my mission is the same: help people navigate complexity with confidence.</p>
+        <div class="tag-row">
+          <span class="tag">Gaming</span>
+          <span class="tag">Anime</span>
+          <span class="tag">Food</span>
+        </div>
+      </div>
+      <div class="why-side">
+        <div class="why-photo">
+          <img src="Pictures/IMG-20250305-WA0008.jpg" alt="Victor Aina" loading="lazy" style="object-position:50% 15%;">
+        </div>
+      </div>
+    </div>
+    </div><!-- /.sub-section -->
   </div>
 </section>
 
-<section class="section section-border reveal" id="problem">
+<!-- ================= TAB 2: PROBLEM ================= -->
+<section class="section section-border reveal tab-panel" id="problem" hidden>
   <div class="wrap">
     <div class="eyebrow">Where it usually breaks</div>
     <h2>The gap is rarely the product. It's the seams between teams.</h2>
-    <div class="ledger-rows">
-      <div class="ledger-row">
-        <div class="ref">01 — SETL</div>
-        <div>
-          <div class="desc-title">Settlement</div>
-          <div class="desc-body">Timing gaps between processing and clearing that nobody has actually mapped end to end.</div>
+    <div class="split-photo">
+      <!-- EDIT: the 4 rows below — each has a title (desc-title) and a description (desc-body) -->
+      <div class="ledger-rows">
+        <div class="ledger-row">
+          <div class="ref">01 — STRT</div>
+          <div>
+            <div class="desc-title">Strategy</div>
+            <div class="desc-body">Roadmaps that don't trace back to a clear problem or metric, so priorities reshuffle every quarter.</div>
+          </div>
+        </div>
+        <div class="ledger-row">
+          <div class="ref">02 — HNDF</div>
+          <div>
+            <div class="desc-title">Handoffs</div>
+            <div class="desc-body">Manual coordination between engineering, design, ops, and compliance that nobody has actually mapped end to end.</div>
+          </div>
+        </div>
+        <div class="ledger-row">
+          <div class="ref">03 — OWN</div>
+          <div>
+            <div class="desc-title">Ownership</div>
+            <div class="desc-body">No single owner across teams — so issues stall in the handoff instead of getting fixed.</div>
+          </div>
+        </div>
+        <div class="ledger-row">
+          <div class="ref">04 — RPT</div>
+          <div>
+            <div class="desc-title">Reporting</div>
+            <div class="desc-body">Numbers that don't agree between teams, so every review starts with an argument about the data.</div>
+          </div>
         </div>
       </div>
-      <div class="ledger-row">
-        <div class="ref">02 — RECN</div>
-        <div>
-          <div class="desc-title">Reconciliation</div>
-          <div class="desc-body">Manual matching absorbing hours that should have been automated two platforms ago.</div>
-        </div>
-      </div>
-      <div class="ledger-row">
-        <div class="ref">03 — DISP</div>
-        <div>
-          <div class="desc-title">Disputes</div>
-          <div class="desc-body">No clear ownership between ops, product, and compliance — so cases stall in the handoff.</div>
-        </div>
-      </div>
-      <div class="ledger-row">
-        <div class="ref">04 — RPT</div>
-        <div>
-          <div class="desc-title">Reporting</div>
-          <div class="desc-body">Numbers that don't agree between teams, so every review starts with an argument about the data.</div>
-        </div>
+      <div class="side-photo">
+        <img src="Pictures/IMG-20250305-WA0006.jpg" alt="Victor Aina" loading="lazy" style="object-position:50% 15%;">
       </div>
     </div>
   </div>
 </section>
 
-<section class="section section-border reveal" id="engagements">
-  <div class="wrap">
-    <div class="eyebrow">How we work together</div>
-    <h2>Three fixed-scope engagements. No open-ended retainers.</h2>
-
-    <div class="statement-wrap">
-      <div class="statement-head">
-        <div class="title">Engagement Statement</div>
-        <div class="meta">ISSUED TO: Your team<br>SCOPE: Fixed, not hourly</div>
-      </div>
-
-      <div class="stmt-cols">
-        <div>Ref</div><div>Engagement</div><div>Timeframe</div><div style="text-align:right;">Amount</div>
-      </div>
-
-      <div class="stmt-row free">
-        <div class="ref">000</div>
-        <div>
-          <div class="item-name">Scoping Call</div>
-          <div class="item-desc">30 minutes to find out if there's actually something worth fixing.</div>
-        </div>
-        <div class="term">30 min</div>
-        <div class="amt">$0.00 — Free</div>
-      </div>
-
-      <div class="stmt-row">
-        <div class="ref">AUD-01</div>
-        <div>
-          <div class="item-name">Ops Product Audit</div>
-          <div class="item-desc">Structured review of one product or process area — interviews, process mapping, gap analysis, ranked findings.</div>
-        </div>
-        <div class="term">1–2 weeks</div>
-        <div class="amt">$1,500–$2,500</div>
-      </div>
-
-      <div class="stmt-row">
-        <div class="ref">STR-02</div>
-        <div>
-          <div class="item-name">Strategy Doc</div>
-          <div class="item-desc">Options analysis, recommendation, economics, and risk — board-ready decision support.</div>
-        </div>
-        <div class="term">2–3 weeks</div>
-        <div class="amt">$3,000–$5,000</div>
-      </div>
-
-      <div class="stmt-row">
-        <div class="ref">ROD-03</div>
-        <div>
-          <div class="item-name">Execution Roadmap</div>
-          <div class="item-desc">Phased roadmap, KPIs, milestones, and a live walkthrough your team can run with.</div>
-        </div>
-        <div class="term">3–4 weeks</div>
-        <div class="amt">$5,000–$8,000</div>
-      </div>
-
-      <div class="stmt-balance">
-        <div class="label">Balance to start</div>
-        <div class="value">$0.00</div>
-      </div>
-      <div class="stmt-foot-note">Every engagement starts at REF 000. Nothing above that line happens without a call first.</div>
-    </div>
-  </div>
-</section>
-
-<section class="section section-border reveal" id="why">
+<!-- ================= TAB 3: WHY ME ================= -->
+<section class="section section-border reveal tab-panel" id="why" hidden>
   <div class="wrap">
     <div class="eyebrow">Ref: track record</div>
-    <h2>A decade inside the transaction lifecycle, not just around it.</h2>
+    <!-- EDIT: "why me" headline, bio paragraphs, the chain diagram, and certifications list -->
+    <h2>A decade building products across the full org chart, not just the roadmap.</h2>
     <div class="why-grid">
       <div class="why-body">
-        <p>I lead the OPS Product portfolio at <strong>Interswitch</strong>, covering Settlement, OneView, Recon, and Dispute teams — across engineering, ops, compliance, sales, and risk. That means the full chain, not one slice of it:</p>
+        <p>I lead the Product portfolio at <strong>Interswitch</strong> — including Settlement, OneView, Reconciliation, and Dispute — across engineering, ops, compliance, sales, and risk. That's cross-functional product ownership end to end, not one slice of it:</p>
         <div class="chain"><b>Transaction</b> → Processing → Clearing → <b>Settlement</b> → <b>Reconciliation</b> → Reporting → <b>Dispute</b> → Customer/merchant ops</div>
-        <p style="margin-top:22px;">Most consultants advising on payments products have read about this chain. I've owned the products that run it.</p>
+        <p style="margin-top:22px;">Most consultants advising on product strategy have read the case studies. I've owned the roadmap — and the escalations when it broke.</p>
       </div>
-      <div class="credentials">
-        <div class="cred-eyebrow">Certifications</div>
-        <ul>
-          <li>Certified SAFe 5 Product Manager</li>
-          <li>Enterprise Design Thinking — IBM</li>
-          <li>Lean Six Sigma — Yellow Belt</li>
-          <li>ITIL Service Operations — Axelos</li>
-          <li>Product Strategy — Product School</li>
-        </ul>
+      <div class="why-side">
+        <div class="why-photo">
+          <img src="Pictures/IMG-20250305-WA0008.jpg" alt="Victor Aina, Product Strategy &amp; Ops consultant" loading="lazy" style="object-position:50% 15%;">
+        </div>
+        <div class="credentials">
+          <div class="cred-eyebrow">Certifications</div>
+          <ul>
+            <li>Certified SAFe 5 Product Manager</li>
+            <li>Enterprise Design Thinking — IBM</li>
+            <li>Lean Six Sigma — Yellow Belt</li>
+            <li>ITIL Service Operations — Axelos</li>
+            <li>Product Strategy — Product School</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <div class="eyebrow">Selected scope</div>
+      <h2>A sample of what I've worked inside</h2>
+      <div class="split-photo">
+        <div>
+          <!-- EDIT: the 6 proof points below -->
+          <div class="proof-list">
+            <div class="proof-item">Settlement and reporting platforms</div>
+            <div class="proof-item">Dispute resolution systems</div>
+            <div class="proof-item">Reconciliation tooling &amp; Kafka/Spark reporting pipelines</div>
+            <div class="proof-item">Enterprise BackOffice applications</div>
+            <div class="proof-item">NEFT API settlement automation</div>
+            <div class="proof-item">Cross-functional ops product leadership</div>
+          </div>
+          <div class="proof-note">Client-approved case studies with full detail available on request.</div>
+        </div>
+        <div class="side-photo">
+          <img src="Pictures/1626637499357.jpg" alt="Victor Aina" loading="lazy" style="object-position:60% 20%;">
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section section-border reveal">
+<!-- ================= TAB 4: COLLABORATIONS ================= -->
+<section class="section section-border reveal tab-panel" id="collabs" hidden>
   <div class="wrap">
-    <div class="eyebrow">Selected scope</div>
-    <h2>Systems I've worked inside</h2>
-    <div class="proof-list">
-      <div class="proof-item">Settlement and reporting platforms</div>
-      <div class="proof-item">Dispute resolution systems</div>
-      <div class="proof-item">Reconciliation tooling &amp; Kafka/Spark reporting pipelines</div>
-      <div class="proof-item">Enterprise BackOffice applications</div>
-      <div class="proof-item">NEFT API settlement automation</div>
-      <div class="proof-item">Cross-functional ops product leadership</div>
+    <div class="eyebrow">Outside the day job</div>
+    <h2>A few things I build, back, and post outside of client work.</h2>
+    <!-- EDIT: each card below has a collab-title, collab-desc, and a row of links. Swap the image/monogram or add a card by copying a whole collab-card block. -->
+    <div class="collab-grid">
+      <div class="collab-card">
+        <div class="collab-image">
+          <img src="https://play-lh.googleusercontent.com/47K3BoMAoy-ZaCNwrdeZtMe3ybjbLP-CK2HngWV9YBKP91LQoEwsiLcZ69y6_b76hHrv31MhwVKibpzd9i6F=s0-br30" alt="Kasala app icon" loading="lazy">
+        </div>
+        <div class="collab-title">Kasala</div>
+        <div class="collab-desc">A Nigerian fighting game — big trouble, everyday conflicts, turned into arcade combat.</div>
+        <div class="collab-links">
+          <a class="link-quiet" href="https://kasalagame.com/" target="_blank" rel="noopener">Website ↗</a>
+          <a class="link-quiet" href="https://play.google.com/store/apps/details?id=com.TepidaGaming.Kasala&amp;hl=en" target="_blank" rel="noopener">Google Play ↗</a>
+          <a class="link-quiet" href="https://apps.apple.com/ng/app/kasalagame/id6738885044" target="_blank" rel="noopener">App Store ↗</a>
+        </div>
+      </div>
+
+      <div class="collab-card">
+        <div class="collab-image">
+          <img src="productpictures/PNG Fighters Connect NG-03.png" alt="Fighters Connect logo" loading="lazy">
+        </div>
+        <div class="collab-title">Fighters Connect</div>
+        <div class="collab-desc">Premium fighting game content out of Nigeria — Street Fighter, Tekken, Mortal Kombat, BlazBlue, and more.</div>
+        <div class="collab-links">
+          <a class="link-quiet" href="https://ainavictorobawale.wixsite.com/fightersconnectng/" target="_blank" rel="noopener">Website ↗</a>
+          <a class="link-quiet" href="https://www.instagram.com/fightersconnectng?igsi=MTMyZXJrNm43ZjIxag%3D%3D&amp;utm_source=qr" target="_blank" rel="noopener">Instagram ↗</a>
+          <a class="link-quiet" href="https://x.com/ConnectFighters" target="_blank" rel="noopener">Twitter ↗</a>
+        </div>
+      </div>
+
+      <div class="collab-card">
+        <div class="collab-image">
+          <img src="productpictures/Victorlovs2eat.jpg" alt="Victor Really Loves to Eat logo" loading="lazy">
+        </div>
+        <div class="collab-title">Victor Really Loves to Eat</div>
+        <div class="collab-desc">A running log of food finds and honest reviews, one plate at a time.</div>
+        <div class="collab-links">
+          <a class="link-quiet" href="https://www.instagram.com/victorreallyloves2eat?igsi=MWM3ZG5xZnJtOGM2eQ%3D%3D&amp;utm_source=qr" target="_blank" rel="noopener">Instagram ↗</a>
+        </div>
+      </div>
     </div>
-    <div class="proof-note">Client-approved case studies with full detail available on request.</div>
   </div>
 </section>
 
-<section class="section section-border reveal contact-section" id="contact">
+<!-- ================= TAB 5: CONTACT ================= -->
+<section class="section section-border reveal tab-panel contact-section" id="contact" hidden>
   <div class="wrap">
+    <!-- EDIT: contact headline -->
     <div class="eyebrow">Close the loop</div>
-    <h2 class="contact-headline">If something in your settlement or ops chain doesn't add up, let's find out why.</h2>
-    <div class="contact-row">
-      <a class="btn-primary" href="mailto:hello@victoraina.co?subject=Scoping%20call">Book a free scoping call →</a>
-      <a class="link-quiet" href="https://www.linkedin.com/in/ainavictor/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <div class="split-photo">
+      <div>
+        <h2 class="contact-headline">If something in your product or ops chain doesn't add up, let's find out why.</h2>
+        <div class="contact-row">
+          <a class="btn-primary" href="mailto:hello@victoraina.co?subject=Scoping%20call">Book a free scoping call →</a>
+          <a class="link-quiet" href="https://www.linkedin.com/in/ainavictor/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+        <!-- EDIT: social links -->
+        <div class="social-row">
+          <span class="social-label">Keep up with me:</span>
+          <a class="link-quiet" href="https://www.instagram.com/victor_o_aina?igsi=cjNpODhleGFhenp0&amp;utm_source=qr" target="_blank" rel="noopener">Instagram ↗</a>
+          <a class="link-quiet" href="https://x.com/productstarvic?s=11" target="_blank" rel="noopener">Twitter ↗</a>
+          <a class="link-quiet" href="https://medium.com/@ainavictorobawale" target="_blank" rel="noopener">Medium ↗</a>
+        </div>
+      </div>
+      <div class="side-photo">
+        <img src="Pictures/IMG-20250305-WA0004.jpg" alt="Victor Aina" loading="lazy" style="object-position:50% 15%;">
+      </div>
     </div>
-    <div class="footer-row">
-      <div>Victor Aina — Product &amp; Payments Ops Consulting</div>
-      <div><a href="mailto:hello@victoraina.co">hello@victoraina.co</a></div>
+
+    <!-- "How we work together" (pricing) now lives under the contact card, inside this same tab -->
+    <div class="sub-section">
+      <div class="split-photo">
+        <div>
+          <div class="eyebrow">How we work together</div>
+          <h2 style="margin-bottom:0;">Three fixed-scope engagements. No open-ended retainers.</h2>
+        </div>
+        <div class="side-photo">
+          <img src="Pictures/IMG-20250305-WA0012.jpg" alt="Victor Aina" loading="lazy" style="object-position:50% 12%;">
+        </div>
+      </div>
+
+      <div class="statement-wrap" id="engagements" style="margin-top:36px;">
+        <div class="statement-head">
+          <div class="title">Engagement Statement</div>
+          <div class="meta">ISSUED TO: Your team<br>SCOPE: Fixed, not hourly</div>
+        </div>
+
+        <div class="stmt-cols">
+          <div>Ref</div><div>Engagement</div><div>Timeframe</div><div style="text-align:right;">Amount</div>
+        </div>
+
+        <!-- EDIT: each row below has an item-name, item-desc, term (timeframe), and amt (price) -->
+        <div class="stmt-row free">
+          <div class="ref">000</div>
+          <div>
+            <div class="item-name">Scoping Call</div>
+            <div class="item-desc">30 minutes to find out if there's actually something worth fixing.</div>
+          </div>
+          <div class="term">30 min</div>
+          <div class="amt">$0.00 — Free</div>
+        </div>
+
+        <div class="stmt-row">
+          <div class="ref">AUD-01</div>
+          <div>
+            <div class="item-name">Product Audit</div>
+            <div class="item-desc">Structured review of one product or process area — interviews, process mapping, gap analysis, ranked findings.</div>
+          </div>
+          <div class="term">1–2 weeks</div>
+          <div class="amt">Based on scope</div>
+        </div>
+
+        <div class="stmt-row">
+          <div class="ref">STR-02</div>
+          <div>
+            <div class="item-name">Strategy Doc</div>
+            <div class="item-desc">Options analysis, recommendation, economics, and risk — board-ready decision support.</div>
+          </div>
+          <div class="term">2–3 weeks</div>
+          <div class="amt">Based on scope</div>
+        </div>
+
+        <div class="stmt-row">
+          <div class="ref">ROD-03</div>
+          <div>
+            <div class="item-name">Execution Roadmap</div>
+            <div class="item-desc">Phased roadmap, KPIs, milestones, and a live walkthrough your team can run with.</div>
+          </div>
+          <div class="term">3–4 weeks</div>
+          <div class="amt">Based on scope</div>
+        </div>
+
+        <div class="stmt-balance">
+          <div class="label">Balance to start</div>
+          <div class="value">$0.00</div>
+        </div>
+        <div class="stmt-foot-note">Every engagement starts at REF 000. Nothing above that line happens without a call first.</div>
+      </div>
     </div>
   </div>
 </section>
+
+</div><!-- /#tab-panels -->
+
+<footer>
+  <div class="wrap footer-row">
+    <div>Victor Aina — Product Strategy &amp; Ops Consulting</div>
+    <div><a href="mailto:hello@victoraina.co">hello@victoraina.co</a></div>
+  </div>
+</footer>
 
 <script>
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -538,6 +774,57 @@
     items.forEach(i => io.observe(i));
   } else {
     document.querySelectorAll('.reveal').forEach(i => i.classList.add('in'));
+  }
+
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('is-open', isOpen);
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    menuToggle.classList.remove('is-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }));
+
+  // ---- Tabs: Home / Problem / Why Me / Collabs / Contact (switched via header + mobile nav) ----
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  const navTargets = document.querySelectorAll('[data-nav-for]');
+  const validTabIds = Array.from(tabPanels).map(p => p.id);
+
+  function showTab(id) {
+    tabPanels.forEach(p => { p.hidden = (p.id !== id); });
+    navTargets.forEach(el => el.classList.toggle('active', el.dataset.navFor === id));
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      const panel = target.closest('.tab-panel');
+      if (panel) showTab(panel.id);
+      history.replaceState(null, '', '#' + id);
+      requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    });
+  });
+
+  const hashId = location.hash.slice(1);
+  let startId = 'home';
+  if (validTabIds.indexOf(hashId) !== -1) {
+    startId = hashId;
+  } else if (hashId) {
+    const hashTarget = document.getElementById(hashId);
+    const hashPanel = hashTarget ? hashTarget.closest('.tab-panel') : null;
+    if (hashPanel) startId = hashPanel.id;
+  }
+  showTab(startId);
+  if (hashId) {
+    const initialTarget = document.getElementById(hashId);
+    if (initialTarget) initialTarget.scrollIntoView({ block: 'start' });
   }
 </script>
 
